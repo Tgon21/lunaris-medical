@@ -147,64 +147,24 @@ img{max-width:100%}
    the card sits higher than the plate edge and photos run past its bottom, so
    the section hand-off isn't one hard line */
 .hero .wrap{padding-top:calc(min(54vh,470px) - 228px);padding-bottom:64px}
-/* the plate fills the whole hero, so the collage runs flush to the bottom of
-   the overlapping card instead of stopping partway up */
+/* the plate fills the whole hero with the clinic's banner artwork; the crop is
+   biased left so the artwork's centered logo clears the overlapping hero card,
+   and bottom so the wave + logo never crop off wide screens */
 .plate{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(155deg,rgba(44,35,53,.60),rgba(124,95,158,.34)),
-    linear-gradient(30deg,#7c5f9e,#b7a3cc 55%,#e9def0);
-  overflow:hidden;
+  position:absolute;inset:0;overflow:hidden;
+  background:url("photos/hero-banner.jpg") 18% bottom / cover no-repeat #cfc0dd;
 }
 .plate::after{
   content:"";position:absolute;inset:0;background-image:var(--grain);
-  opacity:.14;mix-blend-mode:overlay;pointer-events:none;
+  opacity:.10;mix-blend-mode:overlay;pointer-events:none;
 }
-.plate-note{
-  position:absolute;right:22px;bottom:16px;color:#5d477c;opacity:.92;z-index:4;text-shadow:0 1px 2px rgba(255,255,255,.65);
-  font-family:var(--sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-}
-/* right-side columns are vw-clamped so the photo columns always reach past the
-   overlapping hero card — the card may crop photos, never the sign text */
-.plate .collage{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr clamp(190px,13.5vw,240px) clamp(190px,13.5vw,240px);grid-template-rows:.95fr .95fr 1.25fr;gap:7px;background:var(--bone);z-index:1}
-.plate .ct{position:relative;margin:0;overflow:hidden;background:#efe7d8}
-.plate .ct img{width:100%;height:100%;object-fit:cover;display:block}
-.plate .ct-sign{grid-column:3 / 5;grid-row:1 / 3;background:#eee9f0}
-/* b1/b2 reuse int-1/int-3 with opposite crops, far from their other tiles */
-.plate .ct-b1{grid-column:3;grid-row:3}
-.plate .ct-b1 img{object-position:left center}
-.plate .ct-b2{grid-column:4;grid-row:3}
-.plate .ct-b2 img{object-position:right center}
-.plate .ct-int:nth-of-type(2){grid-column:1;grid-row:1 / 2}
-.plate .ct-int:nth-of-type(3){grid-column:2;grid-row:1 / 3}
-.plate .ct-int:nth-of-type(4){grid-column:1;grid-row:2 / 4}
-.plate .ct-int:nth-of-type(5){grid-column:2;grid-row:3 / 4}
-.plate .ct-int img{filter:saturate(.6) contrast(1.02) brightness(1.03)}
-.plate .ct-int::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(74,53,102,.36),rgba(124,95,158,.2));mix-blend-mode:multiply}
 @media(max-width:1000px){
-  /* single right column: sign in a near-square top cell, photo tiles below;
-     keep the lower card offset here so it can't clip the sign's tagline */
   .hero .wrap{padding-top:calc(min(54vh,470px) - 158px)}
-  .plate .collage{grid-template-columns:1fr 1fr minmax(210px,300px);grid-template-rows:1fr .9fr 1.35fr}
-  .plate .ct-sign{grid-column:3;grid-row:1 / 2}
-  .plate .ct-b1{grid-row:2}
-  .plate .ct-b2{grid-column:3;grid-row:3}
-  .plate .ct-int:nth-of-type(3){grid-column:2;grid-row:1 / 3}
-  .plate .ct-int:nth-of-type(5){grid-column:2;grid-row:3 / 4}
 }
 @media(max-width:700px){
-  .plate{position:relative;height:min(54vh,470px)}
+  /* no overlapping card here — recenter on the artwork's logo */
+  .plate{position:relative;height:min(46vh,390px);background-position:center bottom}
   .hero .wrap{padding-top:0;padding-bottom:0}
-  .plate .collage{grid-template-columns:1fr 1.18fr;grid-template-rows:1fr 1fr;gap:5px}
-  .plate .ct-sign{grid-column:2;grid-row:1 / 3;background:linear-gradient(180deg,#cfc6dc,#fbeef0)}
-  /* tile is too tall/narrow to crop the artwork: letterbox on a bg sampled from its edges */
-  .plate .ct-sign img{object-fit:contain;padding:10px}
-  .plate .ct-b1,.plate .ct-b2{display:none}
-  .plate .ct-int:nth-of-type(2){grid-column:1;grid-row:1}
-  .plate .ct-int:nth-of-type(3){grid-column:1;grid-row:2}
-  .plate .ct-int:nth-of-type(4){display:none}
-  .plate .ct-int:nth-of-type(5){display:none}
-  .plate .plate-note{display:none}
 }
 .hero-card{
   background:var(--bone);padding:52px 56px 46px;max-width:620px;
@@ -501,17 +461,7 @@ html[data-lang="en"] [lang="es"]{display:none!important}
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="plate">
-      <div class="collage" role="group" aria-label="Fotos de la oficina de Lunaris Medical Clinic">
-        <figure class="ct ct-sign"><img src="photos/lunaris-sign.jpg" alt="Logo de Lunaris Medical Clinic — Compasión, Confianza, Excelencia"></figure>
-        <figure class="ct ct-int"><img src="photos/int-1.jpg" alt="Sala de examen luminosa" loading="lazy"></figure>
-        <figure class="ct ct-int"><img src="photos/int-2.jpg" alt="Consultorio de la clínica" loading="lazy"></figure>
-        <figure class="ct ct-int"><img src="photos/int-3.jpg" alt="Área de la clínica con luz natural" loading="lazy"></figure>
-        <figure class="ct ct-int"><img src="photos/int-4.jpg" alt="Sala de tratamiento" loading="lazy"></figure>
-        <figure class="ct ct-int ct-b1"><img src="photos/int-1.jpg" alt="Camilla de la sala de examen" loading="lazy"></figure>
-        <figure class="ct ct-int ct-b2"><img src="photos/int-3.jpg" alt="Gabinete de suministros médicos" loading="lazy"></figure>
-      </div>
-    </div>
+    <div class="plate" role="img" aria-label="Interiores de Lunaris Medical Clinic — recepción, pasillo y sala de examen — con el logo de la clínica"></div>
     <div class="wrap">
       <div class="hero-card">
         <span class="label"><span lang="es">Aceptamos pacientes nuevos</span><span lang="en">Accepting new patients</span></span>
