@@ -1,0 +1,32 @@
+# Dependabot — mirrors ecom-flooraction's dependency posture.
+#
+# Repo-level toggles (Settings → Code security, set via API):
+#   - Dependabot vulnerability ALERTS:        enabled
+#   - Dependabot SECURITY updates (auto-PRs): enabled  (real-time, advisory-driven)
+#
+# No package manifest in this repo, so the only ecosystem to watch is the
+# GitHub Actions used by the workflows themselves. Security updates run
+# continuously regardless of `schedule`; the schedule below governs routine
+# VERSION updates.
+version: 2
+updates:
+  # ── GitHub Actions used by CI/deploy workflows (.github/workflows/*.yml) ─────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+      - "ci"
+      - "security"
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      actions-version:
+        applies-to: version-updates
+        patterns:
+          - "*"
