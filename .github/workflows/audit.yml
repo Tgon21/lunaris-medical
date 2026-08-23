@@ -1,0 +1,102 @@
+name: Audit
+
+# Standing security/health sweep — 3x/day plus on demand. Ported from
+# ecom-flooraction's audit flow.
+#
+# Two halves:
+#   1. DETERMINISTIC (always runs, no secrets): gitleaks over the full git
+#      history for committed secrets. (No package manifest here, so dependency
+#      CVEs are covered by Dependabot alerts instead of npm audit.)
+#   2. JUDGMENT (skips cleanly without ANTHROPIC_API_KEY): Claude reads the last
+#      day's diff for logic bugs and security slips a grep can't see.
+#
+# Findings land in ONE rolling issue (rewritten each run), so a 3x/day cadence
+# never turns into ticket spam. ADVISORY — it never blocks a deploy.
+
+on:
+  schedule:
+    # Times are UTC; NJ is UTC-4 in summer. ~7am / ~1pm / ~9pm Eastern.
+    - cron: '0 11 * * *'
+    - cron: '0 17 * * *'
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    # Job-level so the Claude step's `if:` can see it — a step-level env is not
+    # in scope for that step's own `if`, and the `secrets` context isn't allowed
+    # there at all, so the gate would silently never fire.
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Full history so the secret scan can see what was ever committed.
+          fetch-depth: 0
+
+      # ── 1. Secrets, over the whole history ─────────────────────────────────
+      - name: Secret scan (gitleaks)
+        id: gitleaks
+        continue-on-error: true
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.28.0/gitleaks_8.28.0_linux_x64.tar.gz \
+            | tar -xz -C /tmp gitleaks
+          # Report-only: exit 0 either way, findings are collated below.
+          /tmp/gitleaks detect --source . --no-banner --redact --report-format json --report-path gitleaks.json --exit-code 0 || true
+          echo "count=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('gitleaks.json','utf8')).length)}catch{console.log(0)}")" >> "$GITHUB_OUTPUT"
+
+      # ── 2. Judgment layer — skips cleanly when the key isn't set ───────────
+      - name: Claude review (recent changes)
+        id: claude
+        if: ${{ env.ANTHROPIC_API_KEY != '' }}
+        run: node .github/scripts/claude-audit.mjs > claude-report.md 2>&1 || echo "_Claude review failed — see the run log._" > claude-report.md
+
+      # ── 3. Collate into ONE rolling issue ─────────────────────────────────
+      - name: Update the rolling audit issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LEAKS: ${{ steps.gitleaks.outputs.count }}
+        run: |
+          {
+            echo "_Automated sweep — last run $(date -u '+%Y-%m-%d %H:%M UTC') · [run log](https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})._"
+            echo
+            echo "**${LEAKS:-0}** secret-scan hit(s). Dependency CVEs are covered by Dependabot alerts (no package manifest in this repo)."
+            echo
+            if [ -s claude-report.md ]; then
+              echo "## Claude review (recent changes)"
+              echo
+              cat claude-report.md
+            else
+              echo "## Claude review"
+              echo
+              echo "_Skipped — no \`ANTHROPIC_API_KEY\` repo secret. The secret scan above still ran._"
+            fi
+            if [ "${LEAKS:-0}" != "0" ]; then
+              echo
+              echo "## 🔴 Secret scan"
+              echo
+              echo "gitleaks flagged ${LEAKS} candidate secret(s) in the repo/history. Values are redacted here — see the run log, and rotate anything real."
+            fi
+            echo
+            echo "---"
+            echo "<sub>Config: \`.github/workflows/audit.yml\` · secrets via gitleaks. Ported from ecom-flooraction.</sub>"
+          } > body.md
+
+          TITLE="🛡️ Automated audit — standing report"
+          NUM=$(gh issue list --state open --label audit --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$NUM" ]; then
+            gh issue edit "$NUM" --body-file body.md
+            echo "Updated issue #$NUM"
+          else
+            gh label create audit --color 0E8A16 --description "Automated standing audit" 2>/dev/null || true
+            gh issue create --title "$TITLE" --label audit --body-file body.md
+          fi
