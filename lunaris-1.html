@@ -244,6 +244,15 @@ img{max-width:100%}
 .areas-label{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:1.2em 0 .7em}
 .areas{list-style:none;margin:0 0 1.7em;padding:0;display:flex;flex-wrap:wrap;gap:7px 8px}
 .areas li{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);border:1px solid var(--rule);border-radius:2px;padding:5px 11px}
+.bio{margin:.4em 0 1.4em}
+.bio summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--brass);padding:4px 0}
+.bio summary::-webkit-details-marker{display:none}
+.bio summary::after{content:"+";font-size:15px;line-height:1;font-weight:400}
+.bio[open] summary::after{content:"–"}
+.bio[open] summary{margin-bottom:1em}
+.bio p{margin-bottom:1em}
+.bio-close{font-family:var(--display);font-style:italic;font-size:1.15rem;line-height:1.5;color:var(--ink);max-width:44ch}
+.hrs-note{display:block;font-size:12px;color:var(--ink-soft)}
 
 /* ---------- reviews: oversized pull quote ---------- */
 
@@ -465,8 +474,8 @@ html[data-lang="en"] [lang="es"]{display:none!important}
     <div class="wrap">
       <div class="hero-card">
         <span class="label"><span lang="es">Aceptamos pacientes nuevos</span><span lang="en">Accepting new patients</span></span>
-        <h1 lang="es">Un médico de familia con tiempo para toda la conversación.</h1>
-        <h1 lang="en">A family doctor who has time for the whole conversation.</h1>
+        <h1 lang="es">Un médico generalista con tiempo para toda la conversación.</h1>
+        <h1 lang="en">A general practitioner who has time for the whole conversation.</h1>
         <p class="lede" lang="es">Medicina primaria y bienestar emocional bajo un mismo techo
         en Caguas — con citas la misma semana y una recepción que lo conoce por su nombre.</p>
         <p class="lede" lang="en">Primary care and emotional wellness under one roof in
@@ -500,7 +509,7 @@ html[data-lang="en"] [lang="es"]{display:none!important}
         single visit.</p>
         <div class="body-2" lang="es">
           <p>Lunaris Medical Clinic une dos cosas que casi siempre viven separadas: la
-          medicina primaria y el bienestar emocional. Una médica de atención primaria y
+          medicina primaria y el bienestar emocional. Un médico de atención primaria y
           una trabajadora social clínica licenciada, bajo un mismo techo en Caguas, con
           paneles limitados para que las citas empiecen a tiempo.</p>
           <p>Eso significa exámenes físicos anuales sin prisa y cuidado crónico — diabetes,
@@ -618,8 +627,44 @@ html[data-lang="en"] [lang="es"]{display:none!important}
         <div>
           <h3>Dra. Morayma E. Rivera Nieves</h3>
           <p class="cred"><span lang="es">Medicina primaria · Certificada</span><span lang="en">Primary Care Physician · Board Certified</span></p>
-          <p lang="es">Médica de atención primaria dedicada al cuidado integral de adultos y familias — prevención, condiciones crónicas y la salud del día a día, con tiempo para escuchar.</p>
-          <p lang="en">Primary care physician devoted to whole-person care for adults and families — prevention, chronic conditions, and everyday health, with time to listen.</p>
+          <p class="prov-quote" lang="es">Una vocación de servicio convertida en un sueño</p>
+          <p lang="es">La historia profesional de la Dra. Morayma E. Rivera Nieves ha estado marcada por la perseverancia, la preparación académica y, sobre todo, por una profunda vocación de servicio hacia los demás.</p>
+          <details class="bio" lang="es">
+            <summary>Leer su historia completa</summary>
+            <p>Su formación universitaria comenzó en la Universidad del Sagrado Corazón en Santurce, Puerto Rico, donde completó un Bachillerato en Biología. Posteriormente, continuó su preparación académica realizando estudios en Tecnología Médica, profesión que ejerció durante varios años y que le permitió adquirir una sólida experiencia en el campo de las ciencias de laboratorio y el cuidado de la salud.</p>
+            <p>Su deseo constante de superación la llevó a completar dos maestrías: una en Administración de Laboratorios Clínicos y otra en Microbiología Molecular, fortaleciendo así sus conocimientos tanto en el área administrativa como científica.</p>
+            <p>Sin embargo, desde pequeña existía en ella un sueño aún mayor: convertirse en médico y dedicar su vida al servicio de los demás.</p>
+            <p>En el año 2008, decidió continuar su formación profesional en la República Dominicana, donde inició sus estudios conducentes al Doctorado en Medicina. A los 31 años de edad, alcanzó una de las metas más importantes de su vida al graduarse como doctora en Medicina.</p>
+            <p>De regreso a Puerto Rico, su país natal, continuó trabajando como tecnóloga médica y realizando turnos mientras se preparaba para aprobar los exámenes requeridos para ejercer la medicina. Una vez completados sus exámenes, realizó su internado médico en el Hospital del Maestro, en Hato Rey, culminando satisfactoriamente esta importante etapa de su formación clínica.</p>
+            <p>En el año 2021, comenzó a ejercer como médico hospitalista en el Hospital San Francisco de Río Piedras, donde trabajó durante aproximadamente tres años, adquiriendo una valiosa experiencia en el manejo y cuidado de pacientes hospitalizados.</p>
+            <p>Posteriormente, dio un nuevo paso en su trayectoria profesional al incorporarse a un Centro 330, desempeñándose como médico de atención primaria, acercándose aún más a una de sus grandes pasiones: acompañar a sus pacientes no solamente durante la enfermedad, sino también en la prevención, educación y cuidado continuo de la salud.</p>
+            <p>Actualmente, también brinda servicios médicos mediante telemedicina bajo Triple-S, continuando su compromiso de hacer que la atención médica sea más accesible para los pacientes.</p>
+            <p>Pero detrás de cada grado académico, cada turno y cada etapa de su carrera siempre ha permanecido el mismo propósito: servir a su gente de Puerto Rico.</p>
+            <p>Desde muy joven, la Dra. Rivera Nieves sintió en su corazón el deseo de ayudar a los demás, particularmente a quienes más lo necesitan. De esa vocación, de años de esfuerzo y de aquel sueño de infancia de algún día tener su propia práctica médica, nace Lunaris Medical Clinic.</p>
+            <p>Próximamente, la Dra. Morayma E. Rivera Nieves asumirá la presidencia de Lunaris Medical Clinic, un espacio creado con la visión de ofrecer una atención médica cercana, más humana, profesional y centrada en las necesidades de cada paciente.</p>
+            <p>Lunaris Medical Clinic ofrecerá servicios de medicina primaria, medicina preventiva y manejo de peso, con un enfoque dirigido no solamente al tratamiento de enfermedades, sino también a la prevención y promoción de estilos de vida saludables.</p>
+            <p>Para la Dra. Rivera Nieves, Lunaris representa mucho más que una oficina médica. Representa la culminación de años de sacrificio, preparación y perseverancia; pero, sobre todo, representa la oportunidad de cumplir aquel sueño y llamado que Dios puso en su corazón desde niña:</p>
+            <p class="bio-close">Ser médico, cuidar a los demás, servir con amor y compromiso a su gente de Puerto Rico.</p>
+          </details>
+          <p class="prov-quote" lang="en">A Calling to Serve Transformed into a Dream</p>
+          <p lang="en">The professional journey of Dr. Morayma E. Rivera Nieves has been shaped by perseverance, academic dedication, and, above all, a profound calling to serve others.</p>
+          <details class="bio" lang="en">
+            <summary>Read her full story</summary>
+            <p>Her academic journey began at Universidad del Sagrado Corazón in Santurce, Puerto Rico, where she earned a Bachelor’s Degree in Biology. She later continued her education in Medical Technology, a profession she practiced for several years, gaining valuable experience in laboratory sciences and healthcare.</p>
+            <p>Her continuous desire for professional growth led her to earn two master’s degrees: one in Clinical Laboratory Administration and another in Molecular Microbiology, further strengthening her expertise in both the administrative and scientific aspects of healthcare.</p>
+            <p>Yet, since childhood, she had carried an even greater dream in her heart: to become a physician and dedicate her life to serving others.</p>
+            <p>In 2008, she decided to continue her professional education in the Dominican Republic, where she began her studies toward a Doctor of Medicine degree. At the age of 31, she achieved one of the most significant milestones of her life when she graduated as a physician.</p>
+            <p>Upon returning to her native Puerto Rico, she continued working as a medical technologist while preparing for and completing the examinations required to practice medicine. After successfully completing her board examinations, she pursued her medical internship at Hospital del Maestro in Hato Rey, successfully completing this important stage of her clinical training.</p>
+            <p>In 2021, Dr. Rivera Nieves began practicing as a hospitalist physician at Hospital San Francisco in Río Piedras, where she worked for approximately three years. During this time, she gained extensive experience in the management and care of hospitalized patients.</p>
+            <p>She later took another important step in her professional career by joining a 330 Health Center, where she began practicing as a primary care physician. This role brought her even closer to one of her greatest passions: caring for her patients not only during times of illness, but also through prevention, education, and continuity of care.</p>
+            <p>Currently, she also provides medical services through telemedicine under Triple-S, continuing her commitment to making healthcare more accessible to patients.</p>
+            <p>Behind every academic degree, every shift worked, and every stage of her career, one purpose has remained constant: to serve the people of Puerto Rico.</p>
+            <p>From a very young age, Dr. Rivera Nieves felt in her heart a desire to help others, particularly those who need it most. From that calling, years of dedication and sacrifice, and a childhood dream of one day having her own medical practice, Lunaris Medical Clinic was born.</p>
+            <p>Soon, Dr. Morayma E. Rivera Nieves will assume the presidency of Lunaris Medical Clinic, a space created with the vision of providing healthcare that is compassionate, personal, professional, and centered on the individual needs of every patient.</p>
+            <p>Lunaris Medical Clinic will offer primary care, preventive medicine, and weight management services, with an approach focused not only on the treatment of disease, but also on prevention and the promotion of healthy lifestyles.</p>
+            <p>For Dr. Rivera Nieves, Lunaris represents far more than a medical office. It represents the culmination of years of sacrifice, preparation, perseverance, and faith. Above all, it represents the opportunity to fulfill the dream and calling that God placed in her heart as a child:</p>
+            <p class="bio-close">To be a physician, to care for others, and to serve the people of Puerto Rico with love, compassion, and commitment.</p>
+          </details>
           <dl>
             <div><dt><span lang="es">Enfoque</span><span lang="en">Focus</span></dt><dd><span lang="es">Medicina primaria integral</span><span lang="en">Whole-person primary care</span></dd></div>
             <div><dt><span lang="es">Idiomas</span><span lang="en">Languages</span></dt><dd>Español, English</dd></div>
@@ -642,6 +687,7 @@ html[data-lang="en"] [lang="es"]{display:none!important}
           <dl>
             <div><dt><span lang="es">Enfoque</span><span lang="en">Focus</span></dt><dd><span lang="es">Salud mental, duelo y bienestar emocional</span><span lang="en">Mental health, grief &amp; emotional wellness</span></dd></div>
             <div><dt><span lang="es">Práctica</span><span lang="en">Practice</span></dt><dd>Metamorphosis Wellness &amp; Counseling</dd></div>
+            <div><dt><span lang="es">Teléfono</span><span lang="en">Phone</span></dt><dd><a href="tel:+19392296321">(939) 229-6321</a></dd></div>
             <div><dt><span lang="es">Idiomas</span><span lang="en">Languages</span></dt><dd>Español, English</dd></div>
             <div><dt><span lang="es">Modalidad</span><span lang="en">Format</span></dt><dd><span lang="es">Presencial y virtual</span><span lang="en">In person &amp; virtual</span></dd></div>
           </dl>
@@ -713,12 +759,12 @@ html[data-lang="en"] [lang="es"]{display:none!important}
           Caguas, Puerto Rico</address>
           <table lang="es">
             <tr><td>Lun – Vie</td><td>8:00 am – 5:00 pm</td></tr>
-            <tr><td>Sábado</td><td>Cerrado</td></tr>
+            <tr><td>Sábado</td><td>8:00 am – 1:00 pm <span class="hrs-note">cada dos semanas</span></td></tr>
             <tr><td>Domingo</td><td>Cerrado</td></tr>
           </table>
           <table lang="en">
             <tr><td>Mon – Fri</td><td>8:00 am – 5:00 pm</td></tr>
-            <tr><td>Saturday</td><td>Closed</td></tr>
+            <tr><td>Saturday</td><td>8:00 am – 1:00 pm <span class="hrs-note">every other week</span></td></tr>
             <tr><td>Sunday</td><td>Closed</td></tr>
           </table>
           <p style="color:var(--ink-soft);font-family:var(--sans);font-size:14px"><span lang="es">Teléfono por publicar</span><span lang="en">Phone number coming soon</span></p>
